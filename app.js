@@ -7,15 +7,17 @@ const path = require('path')
 const PORT = process.env.PORT || 3000
 const app = express();
 
-// app.use(morgan('combined'));
-app.use(morgan('tiny'));
-app.use(express.static(path.join(__dirname,'/public/')))
+app.use(morgan('tiny')); //combined to get more details
+app.use(express.static(path.join(__dirname, '/public/')))
+
+app.set('views', './src/views/');
+app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-    res.send('Hello from QA Tools')
+    res.render('index', { title: 'QA Tools', data: ['a', 'b', 'c'] });
 })
 
-app.listen(3000, () => { debug(`listening on port: ${chalk.green(PORT)}`) }) // example of template string `${whatever}`
+app.listen(PORT, () => { debug(`listening on port: ${chalk.green(PORT)}`) }) // example of template string `${whatever}`
 
 /**
  * debug
